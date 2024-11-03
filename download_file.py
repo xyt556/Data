@@ -54,8 +54,7 @@ urls = [
 print("文件 URLs:")
 for url in urls:
     print(url)
-
-
+    download_file(url)
 print("执行函数：")
 print("download_file(url)")
 
