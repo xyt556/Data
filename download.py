@@ -59,7 +59,7 @@ for url in urls:
     print(url)
     download_file(url)
 print("执行函数：")
-print("download_file(url)")
+print("download_file(url, directory='.')")
 
 # 下载Google网盘共享文件夹及文件
 print("Goolgle网盘共享文件夹下载方法（不能超过50个文件）：")
