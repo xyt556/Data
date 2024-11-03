@@ -42,22 +42,18 @@ def unzip_file(zip_file_path, extract_to_dir='.'):
         zip_ref.extractall(extract_to_dir)  # 解压所有文件
         print(f"已解压 '{zip_file_path}' 到 '{extract_to_dir}'")
 
-import requests
-import os
-
+print("使用说明：")
 # 文件 URLs
 urls = [
     "https://github.com/xyt556/Data/raw/main/font_colab.ipynb",
     "https://github.com/xyt556/Data/raw/main/set_font.ipynb",
     "https://github.com/xyt556/Data/raw/main/download_file.ipynb"
 ]
+# 打印 URLs
+print("文件 URLs:")
+for url in urls:
+    print(url)
 
 # 下载文件
-for url in urls:
-    download_file(url)
-
-# Commented out IPython magic to ensure Python compatibility.
-# %run font_colab.ipynb
-
-# Commented out IPython magic to ensure Python compatibility.
-# %run set_font.ipynb
+print("执行函数：")
+print("download_file(url)")
