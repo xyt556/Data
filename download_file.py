@@ -10,6 +10,7 @@ Original file is located at
 import requests
 import os
 import zipfile
+import gdown
 
 # 下载文件函数
 def download_file(url):
@@ -42,7 +43,7 @@ def unzip_file(zip_file_path, extract_to_dir='.'):
         zip_ref.extractall(extract_to_dir)  # 解压所有文件
         print(f"已解压 '{zip_file_path}' 到 '{extract_to_dir}'")
 
-print("使用说明：")
+print("下载文件使用说明：")
 # 文件 URLs
 urls = [
     "https://github.com/xyt556/Data/raw/main/font_colab.ipynb",
@@ -54,6 +55,13 @@ print("文件 URLs:")
 for url in urls:
     print(url)
 
-# 下载文件
+
 print("执行函数：")
 print("download_file(url)")
+
+# 下载Google网盘共享文件夹及文件
+print("Goolgle网盘共享文件夹下载方法（不能超过50个文件）：")
+print("# 文件夹共享链接\n", "url = 'https://drive.google.com/drive/folders/1KPgKuxmW9nJ0dos4mXWAMFX2mnp5mTP-?usp=drive_link\n", "gdown.download_folder(url, quiet=True, use_cookies=False)")
+
+print("Goolgle网盘共享文件下载方法：")
+print("# 文件共享链接\n", "url = 'https://drive.google.com/uc?id=1nfJVpHjRmsi9VFoQH8r5vDw7JW-_26QC\n", "gdown.download(url, quiet=False, fuzzy=True)")
