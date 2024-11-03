@@ -13,13 +13,16 @@ import zipfile
 import gdown
 
 # 下载文件函数
-def download_file(url):
+import requests
+import os
+
+def download_file(url, directory='.'):
     response = requests.get(url, allow_redirects=True)
     filename = os.path.basename(url)
-    with open(filename, 'wb') as file:
+    filepath = os.path.join(directory, filename)
+    with open(filepath, 'wb') as file:
         file.write(response.content)
-    print(f"{filename} 下载完成")
-
+    print(f"{filepath} 下载完成")
 
 # 解压缩
 def unzip_file(zip_file_path, extract_to_dir='.'):
@@ -64,3 +67,6 @@ print("# 文件夹共享链接\n", "url = 'https://drive.google.com/drive/folder
 
 print("Goolgle网盘共享文件下载方法：")
 print("# 文件共享链接\n", "url = 'https://drive.google.com/uc?id=1nfJVpHjRmsi9VFoQH8r5vDw7JW-_26QC\n", "gdown.download(url, quiet=False, fuzzy=True)")
+
+# 解压缩文件
+print("解压缩文件\n","unzip_file(zip_file_path, extract_to_dir='.')")
