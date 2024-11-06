@@ -24,34 +24,61 @@ def download_file(file_url, fold='.'):
     with open(file_path, 'wb') as file:
         file.write(response.content)
 
-def download_fold(url, local_dir):
-    """
-    从给定的GitHub仓库URL下载所有文件和目录。
+import os
+import requests
 
-    参数:
-    url (str): GitHub API目录URL
-    local_dir (str): 本地保存目录
+def download_fold(repo_url, local_dir):
     """
-    response = requests.get(url)
+    从GitHub上的目录下载文件到本地，并保持目录结构。
+
+    :param repo_url: GitHub API URL，指向仓库目录。
+    :param local_dir: 本地存储目录的路径。
+    """
+    # 获取GitHub API目录内容
+    response = requests.get(repo_url)
+    if response.status_code != 200:
+        print(f"无法访问目录: {repo_url}")
+        return
+
+    # 确保本地目标目录存在
+    if not os.path.exists(local_dir):
+        os.makedirs(local_dir)
+
+    # 获取目录中的内容列表
+    files = response.json()
+
+    for file in files:
+        file_name = file['name']
+        file_path = os.path.join(local_dir, file_name)
+
+        # 如果是文件，则下载
+        if file['type'] == 'file':
+            down(file['download_url'], file_path)
+
+        # 如果是目录，则递归调用下载
+        elif file['type'] == 'dir':
+            download_fold(file['url'], file_path)
+
+def down(file_url, local_path):
+    """
+    下载单个文件到本地指定路径。
+
+    :param file_url: 文件的GitHub下载链接
+    :param local_path: 文件的本地保存路径
+    """
+    response = requests.get(file_url)
     if response.status_code == 200:
-        files = response.json()  # 获取目录下的文件信息
-
-        # 如果本地保存目录不存在，则创建该目录
-        if not os.path.exists(local_dir):
-            os.makedirs(local_dir)
-
-        # 遍历目录中的每个文件或子目录
-        for file in files:
-            if file['type'] == 'file':  # 如果是文件，下载文件
-                file_url = file['download_url']
-                file_path = os.path.join(local_dir, file['name'])
-                # print(f"正在下载 {file['name']}...")
-                download_file(file_url, file_path)
-            elif file['type'] == 'dir':  # 如果是目录，递归下载该目录
-                new_dir = os.path.join(local_dir, file['name'])
-                download_fold(file['url'], new_dir)  # 递归下载子目录
+        with open(local_path, 'wb') as f:
+            f.write(response.content)
+        print(f"已下载文件: {local_path}")
     else:
-        print(f"无法获取目录内容。状态码: {response.status_code}")
+        print(f"下载失败: {file_url}")
+
+# 示例：下载GitHub仓库的指定目录
+repo_url = "https://api.github.com/repos/xyt556/Data/contents/S-data/"
+local_dir = "S-data"  # 本地存储目录
+download_fold(repo_url, local_dir)
+
 
 
 # 示例用法
