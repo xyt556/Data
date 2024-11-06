@@ -4,13 +4,54 @@ import os
 import zipfile
 import gdown
 
-def download_file(url, directory='.'):
-    response = requests.get(url, allow_redirects=True)
-    filename = os.path.basename(url)
-    filepath = os.path.join(directory, filename)
-    with open(filepath, 'wb') as file:
+import os
+import requests
+
+def download_file(file_url, fold='.'):
+    """
+    从GitHub下载单个文件并保存到本地。
+
+    参数:
+    file_url (str): 要下载的文件URL
+    fold (str): 保存文件的文件夹路径
+    """
+    response = requests.get(file_url)
+    file_name = os.path.basename(file_url)
+    file_path = os.path.join(fold, file_name)
+    with open(file_path, 'wb') as file:
         file.write(response.content)
-    print(f"{filepath} 下载完成")
+
+
+def download_fold(url, local_dir = '.'):
+    """
+    从给定的GitHub仓库URL下载所有文件和目录。
+
+    参数:
+    url (str): GitHub API目录URL
+    local_dir (str): 本地保存目录
+    """
+    response = requests.get(url)
+    if response.status_code == 200:
+        files = response.json()  # 获取目录下的文件信息
+
+        # 如果本地保存目录不存在，则创建该目录
+        if not os.path.exists(local_dir):
+            os.makedirs(local_dir)
+
+        # 遍历目录中的每个文件或子目录
+        for file in files:
+            if file['type'] == 'file':  # 如果是文件，下载文件
+                file_url = file['download_url']
+                file_path = os.path.join(local_dir, file['name'])
+                # print(f"正在下载 {file['name']}...")
+                download_file(file_url, file_path)
+            elif file['type'] == 'dir':  # 如果是目录，递归下载该目录
+                new_dir = os.path.join(local_dir, file['name'])
+                download_fold(file['url'], new_dir)  # 递归下载子目录
+    else:
+        print(f"无法获取目录内容。状态码: {response.status_code}")
+
+
 
 # 解压缩
 def unzip_file(zip_file_path, extract_to_dir='.'):
