@@ -22,7 +22,7 @@ def download_file(file_url, fold='.'):
         file.write(response.content)
 
 
-def download_fold(url, local_dir = '.'):
+def download_fold(url, local_dir):
     """
     从给定的GitHub仓库URL下载所有文件和目录。
 
