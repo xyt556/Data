@@ -1,12 +1,6 @@
 # -*- coding: utf-8 -*-
-import requests
-import os
 import zipfile
 import gdown
-
-import os
-import requests
-
 import os
 import requests
 
