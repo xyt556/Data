@@ -65,50 +65,6 @@ def download_fold(url, local_dir):
     else:
         print(f"无法获取目录内容。状态码: {response.status_code}")
 
-
-
-
-def down(file_url, file_path):
-    """
-    从GitHub下载单个文件并保存到本地。
-
-    参数:
-    file_url (str): 要下载的文件URL
-    file_path (str): 保存文件的本地路径
-    """
-    response = requests.get(file_url)
-    with open(file_path, 'wb') as file:
-        file.write(response.content)
-
-def download_fold(url, local_dir):
-    """
-    从给定的GitHub仓库URL下载所有文件和目录。
-
-    参数:
-    url (str): GitHub API目录URL
-    local_dir (str): 本地保存目录
-    """
-    response = requests.get(url)
-    if response.status_code == 200:
-        files = response.json()  # 获取目录下的文件信息
-
-        # 如果本地保存目录不存在，则创建该目录
-        if not os.path.exists(local_dir):
-            os.makedirs(local_dir)
-
-        # 遍历目录中的每个文件或子目录
-        for file in files:
-            if file['type'] == 'file':  # 如果是文件，下载文件
-                file_url = file['download_url']
-                file_path = os.path.join(local_dir, file['name'])
-                # print(f"正在下载 {file['name']}...")
-                down(file_url, file_path)
-            elif file['type'] == 'dir':  # 如果是目录，递归下载该目录
-                new_dir = os.path.join(local_dir, file['name'])
-                download_fold(file['url'], new_dir)  # 递归下载子目录
-    else:
-        print(f"无法获取目录内容。状态码: {response.status_code}")
-
 repo_url = "https://api.github.com/repos/xyt556/Data/contents/S_data/"
 local_dir = "."  # 本地存储目录
 download_fold(repo_url, local_dir)
