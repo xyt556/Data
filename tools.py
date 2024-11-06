@@ -7,6 +7,9 @@ import gdown
 import os
 import requests
 
+import os
+import requests
+
 def download_file(file_url, fold='.'):
     """
     从GitHub下载单个文件并保存到本地。
@@ -20,7 +23,6 @@ def download_file(file_url, fold='.'):
     file_path = os.path.join(fold, file_name)
     with open(file_path, 'wb') as file:
         file.write(response.content)
-
 
 def download_fold(url, local_dir):
     """
@@ -50,6 +52,14 @@ def download_fold(url, local_dir):
                 download_fold(file['url'], new_dir)  # 递归下载子目录
     else:
         print(f"无法获取目录内容。状态码: {response.status_code}")
+
+
+# 示例用法
+local_dir = "S-data"
+url = 'https://api.github.com/repos/xyt556/Data/contents/S-data/'
+download_fold(url, local_dir)
+
+
 
 
 
