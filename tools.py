@@ -66,16 +66,8 @@ def download_fold(url, local_dir):
         print(f"无法获取目录内容。状态码: {response.status_code}")
 
 repo_url = "https://api.github.com/repos/xyt556/Data/contents/S_data/"
-local_dir = "."  # 本地存储目录
+local_dir = "xyt"  # 本地存储目录
 download_fold(repo_url, local_dir)
-
-
-
-# 示例用法
-local_dir = "S-data"
-url = 'https://api.github.com/repos/xyt556/Data/contents/S-data/'
-download_fold(url, local_dir)
-
 
 
 
