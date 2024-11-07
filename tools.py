@@ -105,10 +105,10 @@ print("download_file(url, directory='.')")
 
 # 下载Google网盘共享文件夹及文件
 print("Goolgle网盘共享文件夹下载方法（不能超过50个文件）：")
-print("# 文件夹共享链接\n", "url = 'https://drive.google.com/drive/folders/1KPgKuxmW9nJ0dos4mXWAMFX2mnp5mTP-?usp=drive_link\n", "gdown.download_folder(url, quiet=True, use_cookies=False)")
+print("# 文件夹共享链接\n", "url = 'https://drive.google.com/drive/folders/1KPgKuxmW9nJ0dos4mXWAMFX2mnp5mTP-?usp=drive_link'\n", "gdown.download_folder(url, quiet=True, use_cookies=False)")
 
 print("Goolgle网盘共享文件下载方法：")
-print("# 文件共享链接\n", "url = 'https://drive.google.com/uc?id=1nfJVpHjRmsi9VFoQH8r5vDw7JW-_26QC\n", "gdown.download(url, quiet=False, fuzzy=True)")
+print("# 文件共享链接\n", "url = 'https://drive.google.com/uc?id=1nfJVpHjRmsi9VFoQH8r5vDw7JW-_26QC'\n", "gdown.download(url, quiet=False, fuzzy=True)")
 
 # 解压缩文件
 print("解压缩文件\n","unzip_file(zip_file_path, extract_to_dir='.')")
