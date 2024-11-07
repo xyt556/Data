@@ -6,7 +6,7 @@ import requests
 
 def download_file(file_url, fold='.'):
     """
-    从GitHub下载单个文件并保存到本地。
+    通过链接下载单个文件并保存到本地。
 
     参数:
     file_url (str): 要下载的文件URL
@@ -20,7 +20,7 @@ def download_file(file_url, fold='.'):
 
 def down(file_url, file_path):
     """
-    从GitHub下载单个文件并保存到本地。
+    下载单个文件并保存到本地。
 
     参数:
     file_url (str): 要下载的文件URL
