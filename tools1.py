@@ -3,6 +3,7 @@ import requests
 import zipfile
 import gdown
 
+# 通过链接下载文件
 def download_file(file_url, save_path='.'):
     """
     通过链接下载单个文件并保存到本地。
@@ -28,7 +29,7 @@ def download_file(file_url, save_path='.'):
     else:
         print(f"无法下载文件，状态码: {response.status_code}")
 
-
+# 下载目录，如github上的目录
 def download_fold(url, local_dir = "./"):
     """
     从给定的GitHub仓库URL下载所有文件和目录。
@@ -56,11 +57,6 @@ def download_fold(url, local_dir = "./"):
     else:
         print(f"无法获取目录内容。状态码: {response.status_code}")
 
-
-
-
-
-
 # 解压缩
 def unzip_file(zip_file_path, extract_to_dir='.'):
     """
@@ -83,6 +79,8 @@ def unzip_file(zip_file_path, extract_to_dir='.'):
         zip_ref.extractall(extract_to_dir)  # 解压所有文件
         print(f"已解压 '{zip_file_path}' 到 '{extract_to_dir}'")
 
+
+# 下载文件示例
 print("下载文件使用说明：")
 # 文件 URLs
 urls = [
@@ -98,6 +96,7 @@ for url in urls:
 print("执行函数：")
 print("download_file(url, directory='.')")
 
+# 下载目录示例
 repo_url = "https://api.github.com/repos/xyt556/Data/contents/S_data/"
 local_dir = "xyt111"  # 本地存储目录
 download_fold(repo_url, local_dir)
