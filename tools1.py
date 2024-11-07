@@ -29,7 +29,7 @@ def download_file(file_url, save_path='.'):
         print(f"无法下载文件，状态码: {response.status_code}")
 
 
-def download_fold(url, local_dir):
+def download_fold(url, local_dir = "./"):
     """
     从给定的GitHub仓库URL下载所有文件和目录。
 
@@ -99,7 +99,7 @@ print("执行函数：")
 print("download_file(url, directory='.')")
 
 repo_url = "https://api.github.com/repos/xyt556/Data/contents/S_data/"
-local_dir = "xyt"  # 本地存储目录
+local_dir = "xyt111"  # 本地存储目录
 download_fold(repo_url, local_dir)
 
 
