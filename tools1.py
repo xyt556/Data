@@ -33,7 +33,7 @@ def download_file(file_url, save_path='.'):
 urls = [
     "https://github.com/xyt556/Data/raw/main/font_colab.ipynb",
     "https://github.com/xyt556/Data/raw/main/set_font.ipynb",
-    "https://github.com/xyt556/Data/raw/main/download_file.ipynb"
+    # "https://github.com/xyt556/Data/raw/main/download_file.ipynb"
 ]
 
 # 打印 URLs
