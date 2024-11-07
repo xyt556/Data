@@ -79,7 +79,44 @@ def unzip_file(zip_file_path, extract_to_dir='.'):
         zip_ref.extractall(extract_to_dir)  # 解压所有文件
         print(f"已解压 '{zip_file_path}' 到 '{extract_to_dir}'")
 
+# gdown下载Google网盘共享的文件
+import os
+import re
+import gdown
 
+def extract_file_id(url):
+    """
+    从Google Drive共享链接中提取文件ID。
+
+    参数:
+    url (str): Google Drive共享链接
+
+    返回:
+    str: 文件ID
+    """
+    pattern = r'(?:/d/|id=)([a-zA-Z0-9_-]+)'
+    match = re.search(pattern, url)
+    if match:
+        return match.group(1)
+    else:
+        raise ValueError("无法从链接中提取文件ID")
+
+def download_file_from_google_drive(url, output_folder='.'):
+    """
+    从Google Drive下载文件并保留原始文件名。
+
+    参数:
+    url (str): Google Drive文件的共享链接
+    output_folder (str): 保存文件的文件夹路径
+    """
+    file_id = extract_file_id(url)
+    download_url = f"https://drive.google.com/uc?id={file_id}"
+    gdown.download(download_url, quiet=False, fuzzy=True)
+
+# 示例用法
+download_file_from_google_drive('https://drive.google.com/file/d/1JY11SMlhCoHFvWSwevi_eya2eURtdWO5/view?usp=sharing')
+
+# -------------------
 # 下载文件示例
 print("下载文件使用说明：")
 # 文件 URLs
