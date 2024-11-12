@@ -98,22 +98,21 @@ def unzip_file(zip_file_path, extract_to_dir='.'):
         print(f"已解压 '{zip_file_path}' 到 '{extract_to_dir}'")
 
 # gdown下载Google网盘共享的文件
+import os
+import gdown
+
 def extract_file_id(url):
     """
     从Google Drive共享链接中提取文件ID。
 
     参数:
-    url (str): Google Drive共享链接
+    url (str): Google Drive文件的共享链接
 
     返回:
     str: 文件ID
     """
-    pattern = r'(?:/d/|id=)([a-zA-Z0-9_-]+)'
-    match = re.search(pattern, url)
-    if match:
-        return match.group(1)
-    else:
-        raise ValueError("无法从链接中提取文件ID")
+    # 假设url格式为 https://drive.google.com/file/d/FILE_ID/view?usp=sharing
+    return url.split('/d/')[1].split('/')[0]
 
 def download_file_from_google_drive(url, output_folder='.'):
     """
@@ -123,9 +122,19 @@ def download_file_from_google_drive(url, output_folder='.'):
     url (str): Google Drive文件的共享链接
     output_folder (str): 保存文件的文件夹路径
     """
+    # 如果output_folder目录不存在，就创建这个目录
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
     file_id = extract_file_id(url)
     download_url = f"https://drive.google.com/uc?id={file_id}"
-    gdown.download(download_url, quiet=False, fuzzy=True)
+    output_path = os.path.join(output_folder, '')
+    gdown.download(download_url, output=output_path, quiet=False, fuzzy=True)
+
+# 示例使用
+# url = 'https://drive.google.com/file/d/your_file_id/view?usp=sharing'
+# output_folder = './downloads'
+# download_file_from_google_drive(url, output_folder)
 
 # 示例用法
 # download_file_from_google_drive('https://drive.google.com/file/d/1JY11SMlhCoHFvWSwevi_eya2eURtdWO5/view?usp=sharing')
